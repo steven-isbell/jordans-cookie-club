@@ -1,6 +1,6 @@
 export default {
   Query: {
-    hello: (_: any, { id }): string => {
+    hello: (): string => {
       return 'Hello World';
     }
   }

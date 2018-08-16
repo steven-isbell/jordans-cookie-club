@@ -8,14 +8,20 @@
     "apollo-link": "^1.2.2",
     "apollo-link-error": "^1.1.0",
     "apollo-link-http": "^1.5.4",
+    "apollo-link-state": "^0.4.1",
+    "apollo-link-ws": "^1.0.8",
+    "graphql-tag": "^2.9.2",
     "graphql-yoga": "^1.16.1",
     "react": "^16.4.2",
+    "react-apollo": "^2.1.11",
     "react-dom": "^16.4.2",
-    "react-scripts-ts": "2.17.0"
+    "react-scripts-ts": "2.17.0",
+    "subscriptions-transport-ws": "^0.9.14"
   },
   "scripts": {
-    "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build",
+    "start": "concurrently --kill-others \"react-scripts-ts start\" \"tsc -w -p server\"",
+    "start-server": "nodemon /dist/index.js",
+    "build": "concurrently --kill-others \"react-scripts-ts build\" \"tsc -p server\"",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject"
   },
@@ -24,6 +30,8 @@
     "@types/node": "^10.7.1",
     "@types/react": "^16.4.11",
     "@types/react-dom": "^16.0.7",
+    "@types/ws": "^6.0.0",
+    "concurrently": "^3.6.1",
     "typescript": "^3.0.1"
   }
 }

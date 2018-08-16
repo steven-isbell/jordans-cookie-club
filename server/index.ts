@@ -1,8 +1,7 @@
-import { readFileSync } from 'fs';
-import { GraphQLServer } from 'graphql-yoga';
+import { GraphQLServer, PubSub } from 'graphql-yoga';
 
-const typeDefs = readFileSync(`${__dirname}/schema/typeDefs.graphql`, 'utf8');
 import resolvers from './schema/resolvers';
+import typeDefs from './schema/typeDefs';
 
 const options = {
   endpoint: '/graphql',
@@ -10,9 +9,11 @@ const options = {
   port: 3001
 };
 
+const pubsub = new PubSub();
 const server = new GraphQLServer({
   context: req => ({
-    ...req.request
+    ...req.request,
+    pubsub
   }),
   resolvers,
   typeDefs
