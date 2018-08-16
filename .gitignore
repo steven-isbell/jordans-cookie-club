@@ -1,5 +1,9 @@
-# See https://help.github.com/ignore-files/ for more about ignoring files.
+# package directories
+node_modules
+jspm_packages
 
+# Serverless directories
+.serverless
 # dependencies
 /node_modules
 
@@ -22,3 +26,4 @@ yarn-debug.log*
 yarn-error.log*
 
 *.js
+secrets.json
