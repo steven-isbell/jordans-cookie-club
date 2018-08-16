@@ -19,13 +19,13 @@ const wsLink = new WebSocketLink({
   uri: `ws://localhost:3001/`
 });
 
-// using the ability to split links, you can send data to each link
-// depending on what kind of operation is being sent
+// Request Definition Types
 interface IDefinintion {
   kind: string;
   operation?: string;
 }
 
+// split the request to the correct operator Query, Mutation || Subscription
 const link = split(
   ({ query }) => {
     const { kind, operation }: IDefinintion = getMainDefinition(query);
