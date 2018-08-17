@@ -1,3 +1,4 @@
+// import { GraphQLServerLambda, PubSub } from 'graphql-yoga';
 import { GraphQLServer, PubSub } from 'graphql-yoga';
 
 import resolvers from './schema/resolvers';
@@ -19,6 +20,8 @@ const server = new GraphQLServer({
   typeDefs
 });
 
+// exports.server = lambda.graphqlHandler;
+// exports.playground = lambda.playgroundHandler;
 server.start(options, () =>
   console.log(`Server is running on localhost:${options.port}`)
 );

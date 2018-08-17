@@ -1,8 +1,12 @@
+import ApolloSplitClient from 'apollo-split-client';
 import gql from 'graphql-tag';
 import * as React from 'react';
 import { ApolloProvider, Query } from 'react-apollo';
 
-import client from './client';
+const { client } = new ApolloSplitClient(
+  'http://localhost:3001/graphql',
+  'ws:localhost:3001'
+);
 
 import './App.css';
 import logo from './logo.svg';
@@ -44,3 +48,12 @@ class App extends React.Component {
 }
 
 export default App;
+
+// subscription example
+{
+  /* <Subscription subscription={query}>
+  {({ data: { counter }, loading }) => (
+    <h4>New comment: {!loading && counter.count}</h4>
+  )}
+</Subscription>; */
+}

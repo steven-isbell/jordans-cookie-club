@@ -25,7 +25,7 @@ provider:
 #   secrets: ${file(secrets.json)}
 
 # you can overwrite defaults here
- stage: dev
+stage: dev
 #  stage: production
 #  region: us-east-1
 
@@ -46,8 +46,8 @@ provider:
 #            - "/*"
 
 # you can define service wide environment variables here
-# environment: 
-    # NODE_ENV: ${self:custom.secrets.NODE_ENV}
+# environment:
+# NODE_ENV: ${self:custom.secrets.NODE_ENV}
 
 # you can add packaging information here
 #package:
