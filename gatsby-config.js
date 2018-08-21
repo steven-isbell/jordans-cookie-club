@@ -1,0 +1,6 @@
+module.exports = {
+  siteMetadata: {
+    title: "Jordan's Cookie Club",
+  },
+  plugins: ['gatsby-plugin-react-helmet', 'gatsby-plugin-stripe-checkout'],
+}
