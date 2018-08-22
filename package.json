@@ -1,32 +1,32 @@
 {
-  "name": "jordans-cookie-club",
-  "version": "0.1.0",
-  "private": true,
+  "name": "gatsby-starter-default",
+  "description": "Gatsby default starter",
+  "version": "1.0.0",
+  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
-    "apollo-split-client": "^1.0.2",
-    "graphql-tag": "^2.9.2",
-    "graphql-yoga": "^1.16.1",
-    "react": "^16.4.2",
-    "react-apollo": "^2.1.11",
-    "react-dom": "^16.4.2",
-    "react-scripts-ts": "2.17.0",
-    "subscriptions-transport-ws": "^0.9.14"
+    "dotenv": "^6.0.0",
+    "gatsby": "^1.9.277",
+    "gatsby-link": "^1.6.46",
+    "gatsby-plugin-react-helmet": "^2.0.11",
+    "gatsby-plugin-stripe-checkout": "^1.0.5",
+    "react-helmet": "^5.2.0",
+    "stripe": "^6.7.0"
   },
+  "keywords": [
+    "gatsby"
+  ],
+  "license": "MIT",
   "scripts": {
-    "start": "concurrently --kill-others \"react-scripts-ts start\" \"tsc -w -p server\"",
-    "start-server": "nodemon /dist/index.js",
-    "build": "concurrently --kill-others \"react-scripts-ts build\" \"tsc -p server\"",
-    "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "format": "prettier --write 'src/**/*.js'",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "@types/jest": "^23.3.1",
-    "@types/node": "^10.7.1",
-    "@types/react": "^16.4.11",
-    "@types/react-dom": "^16.0.7",
-    "@types/ws": "^6.0.0",
-    "concurrently": "^3.6.1",
-    "serverless-offline": "^3.25.8",
-    "typescript": "^3.0.1"
+    "prettier": "^1.13.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
   }
 }
