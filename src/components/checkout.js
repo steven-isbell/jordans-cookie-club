@@ -54,7 +54,7 @@ const Checkout = class extends React.Component {
       amount: amount,
       description: 'A product well worth your time',
       token: token => {
-        fetch(`AWS_LAMBDA_URL`, {
+        fetch(process.env.AWS_LAMBDA_CHECKOUT_URL, {
           method: 'POST',
           body: JSON.stringify({
             token,
