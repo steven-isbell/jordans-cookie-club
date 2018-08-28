@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 
 const amount = 2500
 const cardStyles = {
@@ -24,7 +24,7 @@ const buttonStyles = {
   letterSpacing: '1.5px',
 }
 
-const Checkout = class extends React.Component {
+class Checkout extends Component {
   state = {
     disabled: false,
     buttonText: 'BUY NOW',
@@ -37,8 +37,6 @@ const Checkout = class extends React.Component {
 
   componentDidMount() {
     this.stripeHandler = StripeCheckout.configure({
-      // You’ll need to add your own Stripe public key to the `checkout.js` file.
-      // key: 'pk_test_STRIPE_PUBLISHABLE_KEY',
       key: process.env.STRIPE_API_KEY,
       closed: () => {
         this.resetButton()
