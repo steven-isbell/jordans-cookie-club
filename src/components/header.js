@@ -18,12 +18,13 @@ const HeaderContainer = styled.header`
   border: 1px solid rgba(34, 36, 38, 0.15);
   box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15);
   min-height: 2.85714286em;
-  padding: 10px;
+  padding: 10px 20% 10px 10%;
 `;
 
 const StyledLink = styled(Link)`
   color: black;
   text-decoration: none;
+  cursor: pointer;
 `;
 
 const Header = ({ background, title }) => (
@@ -31,7 +32,7 @@ const Header = ({ background, title }) => (
     <Heading1>
       <StyledLink to="/">{title}</StyledLink>
     </Heading1>
-    <Nav />
+    <Nav StyledLink={StyledLink} />
   </HeaderContainer>
 );
 
