@@ -1,12 +1,5 @@
-import React from 'react'
-import Link from 'gatsby-link'
+import React from 'react';
 
-import Checkout from '../components/Checkout'
+const IndexPage = () => <div>Home Page</div>;
 
-const IndexPage = () => (
-  <div>
-    <Checkout />
-  </div>
-)
-
-export default IndexPage
+export default IndexPage;
