@@ -16,3 +16,5 @@ export const Button = styled.button`
     filter: hue-rotate(45deg);
   }
 `;
+
+export const Input = styled.input``;

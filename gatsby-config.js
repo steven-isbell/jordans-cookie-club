@@ -1,6 +1,6 @@
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
-})
+});
 
 module.exports = {
   siteMetadata: {
@@ -11,4 +11,4 @@ module.exports = {
     'gatsby-plugin-stripe-checkout',
     'gatsby-plugin-styled-components',
   ],
-}
+};
