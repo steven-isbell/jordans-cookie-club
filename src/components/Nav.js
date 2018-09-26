@@ -17,9 +17,9 @@ const NavWrapper = styled(FlexedContainer)`
 const Nav = ({ cart, StyledLink }) => (
   <NavContainer>
     <NavWrapper>
-      <StyledLink to="/sign_up">Sign Up</StyledLink>
+      {/*<StyledLink to="/sign_up">Sign Up</StyledLink>
       <StyledLink to="/sign_in">Sign In</StyledLink>
-      <StyledLink to="/cart">Cart {cart}</StyledLink>
+<StyledLink to="/cart">Cart {cart}</StyledLink>*/}
     </NavWrapper>
   </NavContainer>
 );
