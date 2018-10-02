@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import { Heading1 } from '../styledComponents/typography';
 
-import Nav from './Nav';
+// import Nav from './Nav';
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -32,7 +32,7 @@ const Header = ({ background, title }) => (
     <Heading1>
       <StyledLink to="/">{title}</StyledLink>
     </Heading1>
-    <Nav StyledLink={StyledLink} />
+    {/* <Nav StyledLink={StyledLink} />*/}
   </HeaderContainer>
 );
 

@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
-const amount = 2500
+const amount = 2500;
 const cardStyles = {
   display: 'flex',
   flexDirection: 'column',
@@ -11,7 +11,7 @@ const cardStyles = {
   backgroundColor: '#fff',
   borderRadius: '6px',
   maxWidth: '400px',
-}
+};
 const buttonStyles = {
   fontSize: '13px',
   textAlign: 'center',
@@ -22,31 +22,31 @@ const buttonStyles = {
   backgroundColor: 'rgb(255, 178, 56)',
   borderRadius: '6px',
   letterSpacing: '1.5px',
-}
+};
 
 class Checkout extends Component {
   state = {
     disabled: false,
     buttonText: 'BUY NOW',
     paymentMessage: '',
-  }
+  };
 
   resetButton() {
-    this.setState({ disabled: false, buttonText: 'BUY NOW' })
+    this.setState({ disabled: false, buttonText: 'BUY NOW' });
   }
 
   componentDidMount() {
     this.stripeHandler = StripeCheckout.configure({
       key: process.env.STRIPE_API_KEY,
       closed: () => {
-        this.resetButton()
+        this.resetButton();
       },
-    })
+    });
   }
 
   openStripeCheckout(event) {
-    event.preventDefault()
-    this.setState({ disabled: true, buttonText: 'WAITING...' })
+    event.preventDefault();
+    this.setState({ disabled: true, buttonText: 'WAITING...' });
     this.stripeHandler.open({
       name: 'Demo Product',
       amount: amount,
@@ -63,27 +63,24 @@ class Checkout extends Component {
           }),
         })
           .then(res => {
-            console.log('Transaction processed successfully')
-            this.resetButton()
-            this.setState({ paymentMessage: 'Payment Successful!' })
-            return res.json()
+            console.log('Transaction processed successfully');
+            this.resetButton();
+            this.setState({ paymentMessage: 'Payment Successful!' });
+            return res.json();
           })
           .catch(error => {
-            console.error('Error:', error)
-            this.setState({ paymentMessage: 'Payment Failed' })
-          })
+            console.error('Error:', error);
+            this.setState({ paymentMessage: 'Payment Failed' });
+          });
       },
-    })
+    });
   }
 
   render() {
     return (
       <div style={cardStyles}>
-        <h4>Spend your Money!</h4>
-        <p>
-          Use any email, 4242 4242 4242 4242 as the credit card number, any 3
-          digit number, and any future date of expiration.
-        </p>
+        <h4>{this.props.cookie.cookieTitle}</h4>
+        <p>{this.props.cookieTitle}</p>
         <button
           style={buttonStyles}
           onClick={event => this.openStripeCheckout(event)}
@@ -93,8 +90,8 @@ class Checkout extends Component {
         </button>
         {this.state.paymentMessage}
       </div>
-    )
+    );
   }
 }
 
-export default Checkout
+export default Checkout;
