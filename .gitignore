@@ -10,3 +10,4 @@ yarn-error.log
 .env.development
 secrets.json
 .serverless
+.env.production

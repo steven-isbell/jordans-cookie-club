@@ -50,7 +50,7 @@ class Checkout extends Component {
     this.stripeHandler.open({
       name: this.props.cookie.name,
       amount: this.props.cookie.price,
-      description: 'A product well worth your time',
+      description: 'Jordans Cookie Club Purchase',
       token: token => {
         fetch(process.env.AWS_LAMBDA_CHECKOUT_URL, {
           method: 'POST',
