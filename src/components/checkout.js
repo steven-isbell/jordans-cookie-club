@@ -80,7 +80,17 @@ class Checkout extends Component {
     const nameParts = this.props.cookie.name.split('\n');
     return (
       <div style={cardStyles}>
-        <h4>{nameParts[0]}</h4>
+        <div
+          style={{
+            display: 'flex',
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
+          <h4>{nameParts[0]}</h4>
+          <p>{`$${this.props.cookie.price}`.replace('00', '')}</p>
+        </div>
         <p>{nameParts[1]}</p>
         {this.props.cookie.img && (
           <img src={require(`../assets/${this.props.cookie.img}`)} />
