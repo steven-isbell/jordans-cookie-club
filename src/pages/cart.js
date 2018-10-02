@@ -8,7 +8,7 @@ const cookies = [
 ];
 
 const cart = () => {
-  return cookies.map(cookie => <Checkout cookie={cookie} />);
+  return <div>Cart</div>;
 };
 
 export default cart;

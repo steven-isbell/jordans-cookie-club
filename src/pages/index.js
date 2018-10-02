@@ -6,6 +6,7 @@ const cookies = [
   { id: 1, name: 'Boo \n Set of 4', price: 1500, img: 'boo.jpg' },
   { id: 2, name: 'Halloween Mickey \n Set of 3', price: 1500, img: null },
   { id: 3, name: 'Hello Fall \n Set of 3', price: 1500, img: null },
+  { id: 4, name: 'Custom \n Set of 3', price: 1500, img: null },
 ];
 
 const IndexPage = () => {
