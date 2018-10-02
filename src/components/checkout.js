@@ -57,6 +57,7 @@ class Checkout extends Component {
           body: JSON.stringify({
             token,
             amount: this.props.cookie.price,
+            description: this.props.cookie.name,
           }),
           headers: new Headers({
             'Content-Type': 'application/json',

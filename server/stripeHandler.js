@@ -1,14 +1,11 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 module.exports.handler = (event, context, callback) => {
-  console.log('creating charge...');
-
   // Pull out the amount and id for the charge from the POST
-  console.log(event);
   const requestData = JSON.parse(event.body);
-  console.log(requestData);
   const amount = requestData.amount;
   const token = requestData.token.id;
+  const description = requestData.description;
 
   // Headers to prevent CORS issues
   const headers = {
@@ -22,7 +19,7 @@ module.exports.handler = (event, context, callback) => {
       amount,
       source: token,
       currency: 'usd',
-      description: 'Charge for Cookies',
+      description,
     })
     .then(charge => {
       // Success response
