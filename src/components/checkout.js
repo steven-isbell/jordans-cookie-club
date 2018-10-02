@@ -10,7 +10,8 @@ const cardStyles = {
   boxShadow: '5px 5px 25px 0 rgba(46,61,73,.2)',
   backgroundColor: '#fff',
   borderRadius: '6px',
-  maxWidth: '400px',
+  margin: '25px',
+  width: '350px',
 };
 const buttonStyles = {
   fontSize: '13px',
@@ -44,11 +45,11 @@ class Checkout extends Component {
     });
   }
 
-  openStripeCheckout(event) {
+  openStripeCheckout = event => {
     event.preventDefault();
     this.setState({ disabled: true, buttonText: 'WAITING...' });
     this.stripeHandler.open({
-      name: 'Demo Product',
+      name: this.props.cookie.name,
       amount: amount,
       description: 'A product well worth your time',
       token: token => {
@@ -74,13 +75,17 @@ class Checkout extends Component {
           });
       },
     });
-  }
+  };
 
   render() {
+    const nameParts = this.props.cookie.name.split('\n');
     return (
       <div style={cardStyles}>
-        <h4>{this.props.cookie.cookieTitle}</h4>
-        <p>{this.props.cookieTitle}</p>
+        <h4>{nameParts[0]}</h4>
+        <p>{nameParts[1]}</p>
+        {this.props.cookie.img && (
+          <img src={require(`../assets/${this.props.cookie.img}`)} />
+        )}
         <button
           style={buttonStyles}
           onClick={event => this.openStripeCheckout(event)}
