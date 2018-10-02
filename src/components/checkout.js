@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-const amount = 2500;
 const cardStyles = {
   display: 'flex',
   flexDirection: 'column',
@@ -50,14 +49,14 @@ class Checkout extends Component {
     this.setState({ disabled: true, buttonText: 'WAITING...' });
     this.stripeHandler.open({
       name: this.props.cookie.name,
-      amount: amount,
+      amount: this.props.cookie.price,
       description: 'A product well worth your time',
       token: token => {
         fetch(process.env.AWS_LAMBDA_CHECKOUT_URL, {
           method: 'POST',
           body: JSON.stringify({
             token,
-            amount,
+            amount: this.props.cookie.price,
           }),
           headers: new Headers({
             'Content-Type': 'application/json',
