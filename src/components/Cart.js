@@ -1,27 +1,6 @@
 import React, { Component } from 'react';
 
-import { Button } from '../styledComponents/theme';
-
-const cardStyles = {
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-around',
-  alignItems: 'flex-start',
-  padding: '3rem',
-  boxShadow: '5px 5px 25px 0 rgba(46,61,73,.2)',
-  backgroundColor: '#fff',
-  borderRadius: '6px',
-  margin: '25px',
-  width: '350px',
-};
-
-class Checkout extends Component {
-  state = {
-    disabled: false,
-    buttonText: 'Add To Cart',
-    paymentMessage: '',
-  };
-
+class Cart extends Component {
   resetButton() {
     this.setState({ disabled: false, buttonText: 'BUY NOW' });
   }
@@ -87,16 +66,17 @@ class Checkout extends Component {
         {this.props.cookie.img && (
           <img src={require(`../assets/${this.props.cookie.img}`)} />
         )}
-        <Button
+        <button
+          style={buttonStyles}
           onClick={event => this.openStripeCheckout(event)}
           disabled={this.state.disabled}
         >
           {this.state.buttonText}
-        </Button>
+        </button>
         {this.state.paymentMessage}
       </div>
     );
   }
 }
 
-export default Checkout;
+export default Cart;

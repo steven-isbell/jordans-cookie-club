@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 
 export const Button = styled.button`
-  padding: 5px 25px;
-  background-image: linear-gradient(116deg, #08aeea 0%, #2af598 100%);
-  color: white;
-  font-weight: bold;
-  text-transform: uppercase;
-  border: none;
-  font-family: sans-serif;
-  filter: hue-rotate(0deg);
-  transition: filter 300ms linear;
-  cursor: pointer;
+  font-size: 16px;
+  font-family: georgia, serif;
+  text-align: center;
+  color: #fff;
+  outline: none;
+  padding: 12px 60px;
+  box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.1);
+  background-color: rgb(255, 178, 56);
+  border-radius: 6px;
+  letter-spacing: 1.5px;
   &:focus,
   &:hover {
     filter: hue-rotate(45deg);
