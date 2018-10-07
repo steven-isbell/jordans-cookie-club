@@ -17,55 +17,24 @@ const cardStyles = {
 
 class Checkout extends Component {
   state = {
-    disabled: false,
     buttonText: 'Add To Cart',
-    paymentMessage: '',
   };
 
-  resetButton() {
-    this.setState({ disabled: false, buttonText: 'BUY NOW' });
-  }
-
-  componentDidMount() {
-    this.stripeHandler = StripeCheckout.configure({
-      key: process.env.STRIPE_API_KEY,
-      closed: () => {
-        this.resetButton();
-      },
-    });
-  }
-
-  openStripeCheckout = event => {
-    event.preventDefault();
-    this.setState({ disabled: true, buttonText: 'WAITING...' });
-    this.stripeHandler.open({
-      name: this.props.cookie.name,
-      amount: this.props.cookie.price,
-      description: 'Jordans Cookie Club Purchase',
-      token: token => {
-        fetch(process.env.AWS_LAMBDA_CHECKOUT_URL, {
-          method: 'POST',
-          body: JSON.stringify({
-            token,
-            amount: this.props.cookie.price,
-            description: this.props.cookie.name,
-          }),
-          headers: new Headers({
-            'Content-Type': 'application/json',
-          }),
-        })
-          .then(res => {
-            console.log('Transaction processed successfully');
-            this.resetButton();
-            this.setState({ paymentMessage: 'Payment Successful!' });
-            return res.json();
-          })
-          .catch(error => {
-            console.error('Error:', error);
-            this.setState({ paymentMessage: 'Payment Failed' });
-          });
-      },
-    });
+  addToCart = item => {
+    let newItems = [];
+    const items = JSON.parse(localStorage.getItem('cart'));
+    if (items) {
+      newItems = [...items];
+      const matched = newItems.find(val => val.id === item.id);
+      if (matched) {
+        matched.quantity += 1;
+      } else {
+        newItems.push({ ...item, quantity: 1 });
+      }
+    } else {
+      newItems.push({ ...item, quantity: 1 });
+      localStorage.setItem('cart', JSON.stringify(newItems));
+    }
   };
 
   render() {
@@ -87,10 +56,7 @@ class Checkout extends Component {
         {this.props.cookie.img && (
           <img src={require(`../assets/${this.props.cookie.img}`)} />
         )}
-        <Button
-          onClick={event => this.openStripeCheckout(event)}
-          disabled={this.state.disabled}
-        >
+        <Button onClick={() => this.addToCart(this.props.cookie)}>
           {this.state.buttonText}
         </Button>
         {this.state.paymentMessage}

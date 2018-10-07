@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Link from 'gatsby-link';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -27,14 +27,34 @@ const StyledLink = styled(Link)`
   cursor: pointer;
 `;
 
-const Header = ({ background, title }) => (
-  <HeaderContainer background={background}>
-    <Heading1>
-      <StyledLink to="/">{title}</StyledLink>
-    </Heading1>
-    <Nav StyledLink={StyledLink} />
-  </HeaderContainer>
-);
+class Header extends Component {
+  state = { cart: 0 };
+  componentDidMount() {
+    const items = JSON.parse(localStorage.getItem('cart'));
+    if (items) {
+      const count = items.reduce(
+        (acc, cur) => console.log(acc, cur) || (acc += cur.quantity),
+        0
+      );
+      this.setState({ cart: count });
+    }
+  }
+
+  render() {
+    return (
+      <HeaderContainer background={this.props.background}>
+        <Heading1>
+          <StyledLink to="/">{this.props.title}</StyledLink>
+        </Heading1>
+        <Nav
+          StyledLink={StyledLink}
+          cart={this.state.cart}
+          location={this.props.location}
+        />
+      </HeaderContainer>
+    );
+  }
+}
 
 Header.defaultProps = {
   title: "Jordan's Cookie Club",

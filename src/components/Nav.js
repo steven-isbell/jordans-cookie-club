@@ -14,23 +14,25 @@ const NavWrapper = styled(FlexedContainer)`
   justify-content: space-evenly;
 `;
 
-const Nav = ({ cart, StyledLink }) => (
+const Nav = ({ StyledLink, location }) => (
   <NavContainer>
     <NavWrapper>
       {/*<StyledLink to="/sign_up">Sign Up</StyledLink>
 <StyledLink to="/sign_in">Sign In</StyledLink>*/}
-      <StyledLink to="/cart">Cart {cart}</StyledLink>
+      {location.pathname !== '/cart' ? (
+        <StyledLink to="/cart">Cart</StyledLink>
+      ) : (
+        <StyledLink to="/">Home</StyledLink>
+      )}
     </NavWrapper>
   </NavContainer>
 );
 
 Nav.defaultProps = {
-  cart: 0,
   StyledLink: null,
 };
 
 Nav.propTypes = {
-  cart: PropTypes.number,
   StyledLink: PropTypes.func,
 };
 

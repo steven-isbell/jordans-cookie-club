@@ -1,8 +1,21 @@
 import React, { Component } from 'react';
 
+import { Button } from '../styledComponents/theme';
+import { Container } from '../styledComponents/layout';
+
 class Cart extends Component {
+  state = {
+    disabled: false,
+    buttonText: 'Checkout',
+    paymentMessage: '',
+    items: [],
+  };
   resetButton() {
-    this.setState({ disabled: false, buttonText: 'BUY NOW' });
+    this.setState({
+      disabled: false,
+      buttonText: 'Checkout',
+      paymentMessage: '',
+    });
   }
 
   componentDidMount() {
@@ -12,6 +25,11 @@ class Cart extends Component {
         this.resetButton();
       },
     });
+    const items = JSON.parse(localStorage.getItem('cart'));
+    console.log(items);
+    if (items) {
+      this.setState({ items });
+    }
   }
 
   openStripeCheckout = event => {
@@ -48,33 +66,24 @@ class Cart extends Component {
   };
 
   render() {
-    const nameParts = this.props.cookie.name.split('\n');
     return (
-      <div style={cardStyles}>
-        <div
-          style={{
-            display: 'flex',
-            width: '100%',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
-          <h4>{nameParts[0]}</h4>
-          <p>{`$${this.props.cookie.price}`.replace('00', '')}</p>
+      <Container>
+        <div>
+          {this.state.items.map(val => (
+            <div key={val.id}>
+              <h1>{val.name}</h1>
+              <span>{val.price}</span>X<span>{val.quantity}</span>
+            </div>
+          ))}
         </div>
-        <p>{nameParts[1]}</p>
-        {this.props.cookie.img && (
-          <img src={require(`../assets/${this.props.cookie.img}`)} />
-        )}
-        <button
-          style={buttonStyles}
+        <Button
           onClick={event => this.openStripeCheckout(event)}
           disabled={this.state.disabled}
         >
           {this.state.buttonText}
-        </button>
+        </Button>
         {this.state.paymentMessage}
-      </div>
+      </Container>
     );
   }
 }

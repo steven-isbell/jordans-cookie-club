@@ -12,7 +12,7 @@ const LayoutContainer = styled(Container)`
   padding-top: 0;
 `;
 
-const Layout = ({ children, data }) => (
+const Layout = ({ children, data, location }) => (
   <div>
     <Helmet
       title={data.site.siteMetadata.title}
@@ -24,7 +24,7 @@ const Layout = ({ children, data }) => (
         },
       ]}
     />
-    <Header siteTitle={data.site.siteMetadata.title} />
+    <Header siteTitle={data.site.siteMetadata.title} location={location} />
     <LayoutContainer>{children()}</LayoutContainer>
   </div>
 );
