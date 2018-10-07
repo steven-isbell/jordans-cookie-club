@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
+import Link from 'gatsby-link';
+import styled from 'styled-components';
 
 import { Button } from '../styledComponents/theme';
 import { Container } from '../styledComponents/layout';
+
+const StyledLink = styled(Link)`
+  color: rgb(255, 178, 56);
+  text-decoration: none;
+  cursor: pointer;
+`;
 
 class Cart extends Component {
   state = {
@@ -9,6 +17,7 @@ class Cart extends Component {
     buttonText: 'Checkout',
     paymentMessage: '',
     items: [],
+    total: 0,
   };
   resetButton() {
     this.setState({
@@ -26,26 +35,37 @@ class Cart extends Component {
       },
     });
     const items = JSON.parse(localStorage.getItem('cart'));
-    console.log(items);
     if (items) {
-      this.setState({ items });
+      const total = items.reduce(
+        (acc, cur) => (acc += cur.price * cur.quantity),
+        0
+      );
+      this.setState({ items, total });
     }
   }
 
   openStripeCheckout = event => {
     event.preventDefault();
     this.setState({ disabled: true, buttonText: 'WAITING...' });
+    const info = this.state.items.reduce(
+      (acc, cur) => {
+        acc.amount += cur.price * cur.quantity;
+        acc.description += cur.name;
+        return acc;
+      },
+      { amount: 0, description: '' }
+    );
     this.stripeHandler.open({
-      name: this.props.cookie.name,
-      amount: this.props.cookie.price,
+      name: info.description,
+      amount: info.amount,
       description: 'Jordans Cookie Club Purchase',
       token: token => {
         fetch(process.env.AWS_LAMBDA_CHECKOUT_URL, {
           method: 'POST',
           body: JSON.stringify({
             token,
-            amount: this.props.cookie.price,
-            description: this.props.cookie.name,
+            amount: info.amount,
+            description: info.description,
           }),
           headers: new Headers({
             'Content-Type': 'application/json',
@@ -54,7 +74,12 @@ class Cart extends Component {
           .then(res => {
             console.log('Transaction processed successfully');
             this.resetButton();
-            this.setState({ paymentMessage: 'Payment Successful!' });
+            this.setState({
+              paymentMessage: 'Payment Successful!',
+              items: [],
+              total: 0,
+            });
+            localStorage.clear();
             return res.json();
           })
           .catch(error => {
@@ -72,16 +97,30 @@ class Cart extends Component {
           {this.state.items.map(val => (
             <div key={val.id}>
               <h1>{val.name}</h1>
-              <span>{val.price}</span>X<span>{val.quantity}</span>
+              <span>{`$${val.price}`.replace('00', '')}</span>X
+              <span>{val.quantity}</span>
+              <hr />
             </div>
           ))}
         </div>
-        <Button
-          onClick={event => this.openStripeCheckout(event)}
-          disabled={this.state.disabled}
-        >
-          {this.state.buttonText}
-        </Button>
+        {this.state.total > 0 && (
+          <div>
+            <h3>Total {`$${this.state.total}`.replace('00', '')}</h3>
+          </div>
+        )}
+        {this.state.items.length > 0 ? (
+          <Button
+            onClick={event => this.openStripeCheckout(event)}
+            disabled={this.state.disabled}
+          >
+            {this.state.buttonText}
+          </Button>
+        ) : (
+          <h1>
+            Looks like the cart is empty! Start adding items{' '}
+            <StyledLink to="/">here!</StyledLink>
+          </h1>
+        )}
         {this.state.paymentMessage}
       </Container>
     );

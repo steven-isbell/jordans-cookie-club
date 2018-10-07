@@ -28,29 +28,13 @@ const StyledLink = styled(Link)`
 `;
 
 class Header extends Component {
-  state = { cart: 0 };
-  componentDidMount() {
-    const items = JSON.parse(localStorage.getItem('cart'));
-    if (items) {
-      const count = items.reduce(
-        (acc, cur) => console.log(acc, cur) || (acc += cur.quantity),
-        0
-      );
-      this.setState({ cart: count });
-    }
-  }
-
   render() {
     return (
       <HeaderContainer background={this.props.background}>
         <Heading1>
           <StyledLink to="/">{this.props.title}</StyledLink>
         </Heading1>
-        <Nav
-          StyledLink={StyledLink}
-          cart={this.state.cart}
-          location={this.props.location}
-        />
+        <Nav StyledLink={StyledLink} location={this.props.location} />
       </HeaderContainer>
     );
   }

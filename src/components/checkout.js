@@ -33,8 +33,8 @@ class Checkout extends Component {
       }
     } else {
       newItems.push({ ...item, quantity: 1 });
-      localStorage.setItem('cart', JSON.stringify(newItems));
     }
+    localStorage.setItem('cart', JSON.stringify(newItems));
   };
 
   render() {
