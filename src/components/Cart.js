@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import { Button } from '../styledComponents/theme';
 import { Container } from '../styledComponents/layout';
+import InfoForm from './InfoForm';
 
 const StyledLink = styled(Link)`
   color: rgb(255, 178, 56);
@@ -43,28 +44,24 @@ class Cart extends Component {
       this.setState({ items, total });
     }
   }
-
+  handleForm = e => {
+    e.preventDefault();
+    this.setState({ form: !this.state.form });
+  };
   openStripeCheckout = event => {
     event.preventDefault();
-    this.setState({ disabled: true, buttonText: 'WAITING...' });
-    const info = this.state.items.reduce(
-      (acc, cur) => {
-        acc.amount += cur.price * cur.quantity;
-        acc.description += cur.name;
-        return acc;
-      },
-      { amount: 0, description: '' }
-    );
+    const { total } = this.state;
+    this.setState({ disabled: true, buttonText: 'WAITING...', form: false });
     this.stripeHandler.open({
-      name: info.description,
-      amount: info.amount,
+      name: 'Your Cookie Purchase',
+      amount: total,
       description: 'Jordans Cookie Club Purchase',
       token: token => {
         fetch(process.env.AWS_LAMBDA_CHECKOUT_URL, {
           method: 'POST',
           body: JSON.stringify({
             token,
-            amount: info.amount,
+            amount: total,
             description: info.description,
           }),
           headers: new Headers({
@@ -97,7 +94,8 @@ class Cart extends Component {
           {this.state.items.map(val => (
             <div key={val.id}>
               <h1>{val.name}</h1>
-              <span>{`$${val.price}`.replace('00', '')}</span>X
+              <span>{`$${val.price}`.replace('00', '')}</span>
+              &nbsp;X&nbsp;
               <span>{val.quantity}</span>
               <hr />
             </div>
@@ -109,10 +107,7 @@ class Cart extends Component {
           </div>
         )}
         {this.state.items.length > 0 ? (
-          <Button
-            onClick={event => this.openStripeCheckout(event)}
-            disabled={this.state.disabled}
-          >
+          <Button onClick={this.handleForm} disabled={this.state.disabled}>
             {this.state.buttonText}
           </Button>
         ) : (
@@ -121,7 +116,12 @@ class Cart extends Component {
             <StyledLink to="/">here!</StyledLink>
           </h1>
         )}
-        {this.state.paymentMessage}
+        <p>{this.state.paymentMessage}</p>
+        <InfoForm
+          handler={this.openStripeCheckout}
+          open={this.state.form}
+          handleForm={this.handleForm}
+        />
       </Container>
     );
   }
