@@ -37,9 +37,10 @@ class CartWrapper extends Component {
   deleteFromCart = id => {
     let items = JSON.parse(localStorage.getItem('cart'));
     if (items) {
+      const item = items.find(val => val.id === id);
       const cart = items.filter(val => val.id !== id);
       localStorage.setItem('cart', JSON.stringify(cart));
-      this.setState({ cart });
+      this.setState({ cart, quantity: this.state.quantity - item.quantity });
     }
   };
 

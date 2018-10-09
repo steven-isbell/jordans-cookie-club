@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { Button } from '../styledComponents/theme';
 import { Container } from '../styledComponents/layout';
 import InfoForm from './InfoForm';
+import { Consumer } from '../context/CartContext';
 
 const StyledLink = styled(Link)`
   color: rgb(255, 178, 56);
@@ -17,7 +18,6 @@ class Cart extends Component {
     disabled: false,
     buttonText: 'Checkout',
     paymentMessage: '',
-    items: [],
     total: 0,
   };
   resetButton() {
@@ -35,14 +35,9 @@ class Cart extends Component {
         this.resetButton();
       },
     });
-    const items = JSON.parse(localStorage.getItem('cart'));
-    if (items) {
-      const total = items.reduce(
-        (acc, cur) => (acc += cur.price * cur.quantity),
-        0
-      );
-      this.setState({ items, total });
-    }
+  }
+  getTotal(items) {
+    return items.reduce((acc, cur) => (acc += cur.price * cur.quantity), 0);
   }
   handleForm = e => {
     e.preventDefault();
@@ -89,40 +84,57 @@ class Cart extends Component {
 
   render() {
     return (
-      <Container>
-        <div>
-          {this.state.items.map(val => (
-            <div key={val.id}>
-              <h1>{val.name}</h1>
-              <span>{`$${val.price}`.replace('00', '')}</span>
-              &nbsp;X&nbsp;
-              <span>{val.quantity}</span>
-              <hr />
+      <Consumer>
+        {({ deleteFromCart, cart }) => (
+          <Container>
+            <div>
+              {cart.map(val => (
+                <div key={val.id}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                    }}
+                  >
+                    <div>
+                      <h2>{val.name}</h2>
+                      <span>{`$${val.price}`.replace('00', '')}</span>
+                      &nbsp;X&nbsp;
+                      <span>{val.quantity}</span>
+                    </div>
+                    <div onClick={() => deleteFromCart(val.id)}>
+                      <h3 style={{ cursor: 'pointer' }}> &#128465;</h3>
+                    </div>
+                  </div>
+                  <hr />
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        {this.state.total > 0 && (
-          <div>
-            <h3>Total {`$${this.state.total}`.replace('00', '')}</h3>
-          </div>
+            <div>
+              {this.getTotal(cart) ? (
+                <h3>Total {`$${this.getTotal(cart)}`.replace('00', '')}</h3>
+              ) : null}
+            </div>
+            {cart.length > 0 ? (
+              <Button onClick={this.handleForm} disabled={this.state.disabled}>
+                {this.state.buttonText}
+              </Button>
+            ) : (
+              <h1>
+                Looks like the cart is empty! Start adding items{' '}
+                <StyledLink to="/">here!</StyledLink>
+              </h1>
+            )}
+            <p>{this.state.paymentMessage}</p>
+            <InfoForm
+              handler={this.openStripeCheckout}
+              open={this.state.form}
+              handleForm={this.handleForm}
+            />
+          </Container>
         )}
-        {this.state.items.length > 0 ? (
-          <Button onClick={this.handleForm} disabled={this.state.disabled}>
-            {this.state.buttonText}
-          </Button>
-        ) : (
-          <h1>
-            Looks like the cart is empty! Start adding items{' '}
-            <StyledLink to="/">here!</StyledLink>
-          </h1>
-        )}
-        <p>{this.state.paymentMessage}</p>
-        <InfoForm
-          handler={this.openStripeCheckout}
-          open={this.state.form}
-          handleForm={this.handleForm}
-        />
-      </Container>
+      </Consumer>
     );
   }
 }
