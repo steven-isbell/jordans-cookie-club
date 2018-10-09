@@ -56,7 +56,7 @@ class Checkout extends Component {
         {this.props.cookie.img && (
           <img src={require(`../assets/${this.props.cookie.img}`)} />
         )}
-        <Button onClick={() => this.addToCart(this.props.cookie)}>
+        <Button onClick={() => this.props.addToCart(this.props.cookie)}>
           {this.state.buttonText}
         </Button>
         {this.state.paymentMessage}

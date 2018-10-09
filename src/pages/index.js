@@ -1,5 +1,8 @@
 import React from 'react';
+
 import Checkout from '../components/Checkout';
+import { Consumer } from '../context/CartContext';
+
 import './index.css';
 
 const cookies = [
@@ -16,18 +19,22 @@ const cookies = [
 
 const IndexPage = () => {
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
-      }}
-    >
-      {cookies.map(cookie => (
-        <Checkout key={cookie.id} cookie={cookie} />
-      ))}
-    </div>
+    <Consumer>
+      {({ addToCart }) => (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+          }}
+        >
+          {cookies.map(cookie => (
+            <Checkout key={cookie.id} cookie={cookie} addToCart={addToCart} />
+          ))}
+        </div>
+      )}
+    </Consumer>
   );
 };
 

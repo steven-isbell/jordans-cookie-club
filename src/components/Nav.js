@@ -18,12 +18,12 @@ const NavWrapper = styled(FlexedContainer)`
 const Nav = ({ StyledLink, location }) => (
   <NavContainer>
     <Consumer>
-      {({ cart }) => (
+      {({ quantity }) => (
         <NavWrapper>
           {/*<StyledLink to="/sign_up">Sign Up</StyledLink>
 <StyledLink to="/sign_in">Sign In</StyledLink>*/}
           {location.pathname !== '/cart' ? (
-            <StyledLink to="/cart">Cart {cart.length}</StyledLink>
+            <StyledLink to="/cart">Cart {quantity}</StyledLink>
           ) : (
             <StyledLink to="/">Home</StyledLink>
           )}

@@ -3,11 +3,12 @@ import React, { Component } from 'react';
 import { Provider } from '../context/CartContext';
 
 class CartWrapper extends Component {
-  state = { cart: [] };
+  state = { cart: [], quantity: 0 };
   componentDidMount() {
     const cart = JSON.parse(localStorage.getItem('cart'));
     if (cart.length) {
-      this.setState({ cart });
+      const quantity = cart.reduce((acc, cur) => (acc += cur.quantity), 0);
+      this.setState({ cart, quantity });
     }
   }
 
@@ -30,7 +31,7 @@ class CartWrapper extends Component {
       cart.push({ ...item, quantity: 1 });
     }
     localStorage.setItem('cart', JSON.stringify(cart));
-    this.setState({ cart });
+    this.setState({ cart, quantity: this.state.quantity + 1 });
   };
 
   deleteFromCart = id => {
@@ -48,6 +49,7 @@ class CartWrapper extends Component {
       deleteFromCart: this.deleteFromCart,
       resetCart: this.resetCart,
       cart: this.state.cart,
+      quantity: this.state.quantity,
     };
     return <Provider value={data}>{this.props.children}</Provider>;
   }
