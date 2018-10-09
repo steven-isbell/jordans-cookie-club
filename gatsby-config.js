@@ -10,5 +10,6 @@ module.exports = {
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-stripe-checkout',
     'gatsby-plugin-styled-components',
+    'gatsby-plugin-react-next',
   ],
 };

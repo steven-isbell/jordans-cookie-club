@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import './index.css';
 import { Container } from '../styledComponents/layout';
 
+import CartProvider from '../components/CartProvider';
 import Header from '../components/Header';
 
 const LayoutContainer = styled(Container)`
@@ -24,8 +25,10 @@ const Layout = ({ children, data, location }) => (
         },
       ]}
     />
-    <Header siteTitle={data.site.siteMetadata.title} location={location} />
-    <LayoutContainer>{children()}</LayoutContainer>
+    <CartProvider>
+      <Header siteTitle={data.site.siteMetadata.title} location={location} />
+      <LayoutContainer>{children()}</LayoutContainer>
+    </CartProvider>
   </div>
 );
 

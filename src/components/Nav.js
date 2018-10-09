@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { FlexedContainer } from '../styledComponents/layout';
+import { Consumer } from '../context/CartContext';
 
 const NavContainer = styled.nav`
   width: 20%;
@@ -16,15 +17,19 @@ const NavWrapper = styled(FlexedContainer)`
 
 const Nav = ({ StyledLink, location }) => (
   <NavContainer>
-    <NavWrapper>
-      {/*<StyledLink to="/sign_up">Sign Up</StyledLink>
+    <Consumer>
+      {({ cart }) => (
+        <NavWrapper>
+          {/*<StyledLink to="/sign_up">Sign Up</StyledLink>
 <StyledLink to="/sign_in">Sign In</StyledLink>*/}
-      {location.pathname !== '/cart' ? (
-        <StyledLink to="/cart">Cart</StyledLink>
-      ) : (
-        <StyledLink to="/">Home</StyledLink>
+          {location.pathname !== '/cart' ? (
+            <StyledLink to="/cart">Cart {cart.length}</StyledLink>
+          ) : (
+            <StyledLink to="/">Home</StyledLink>
+          )}
+        </NavWrapper>
       )}
-    </NavWrapper>
+    </Consumer>
   </NavContainer>
 );
 
