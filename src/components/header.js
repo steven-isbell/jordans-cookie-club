@@ -19,6 +19,8 @@ const HeaderContainer = styled.header`
   box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15);
   min-height: 2.85714286em;
   padding: 10px 20% 10px 10%;
+  position: fixed;
+  width: 100vw;
 `;
 
 const StyledLink = styled(Link)`

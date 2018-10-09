@@ -10,7 +10,7 @@ import CartProvider from '../components/CartProvider';
 import Header from '../components/Header';
 
 const LayoutContainer = styled(Container)`
-  padding-top: 0;
+  padding-top: 12vh;
 `;
 
 const Layout = ({ children, data, location }) => (
