@@ -26,6 +26,7 @@ provider:
   stage: dev
   environment:
     STRIPE_SECRET_KEY: ${self:custom.secrets.stripeSecretKey} # Stripe secret API key
+    SENDGRID_KEY: ${self:custom.secrets.sendgridKey}
 
 functions:
   checkout:
