@@ -27,6 +27,7 @@ provider:
   environment:
     STRIPE_SECRET_KEY: ${self:custom.secrets.stripeSecretKey} # Stripe secret API key
     SENDGRID_KEY: ${self:custom.secrets.sendgridKey}
+    CONTACT_EMAIL: ${self:custom.secrets.contactEmail}
 
 functions:
   checkout:

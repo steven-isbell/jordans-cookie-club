@@ -43,8 +43,7 @@ class Cart extends Component {
     e.preventDefault();
     this.setState({ form: !this.state.form });
   };
-  openStripeCheckout = event => {
-    event.preventDefault();
+  openStripeCheckout = (submitForm, resetCart) => {
     const { total } = this.state;
     this.setState({ disabled: true, buttonText: 'WAITING...', form: false });
     this.stripeHandler.open({
@@ -64,15 +63,13 @@ class Cart extends Component {
           }),
         })
           .then(res => {
-            console.log('Transaction processed successfully');
             this.resetButton();
             this.setState({
               paymentMessage: 'Payment Successful!',
-              items: [],
               total: 0,
             });
-            localStorage.clear();
-            return res.json();
+            submitForm();
+            resetCart();
           })
           .catch(error => {
             console.error('Error:', error);
@@ -85,7 +82,7 @@ class Cart extends Component {
   render() {
     return (
       <Consumer>
-        {({ deleteFromCart, cart }) => (
+        {({ deleteFromCart, resetCart, cart }) => (
           <Container>
             <div>
               {cart.map(val => (
@@ -131,6 +128,7 @@ class Cart extends Component {
               handler={this.openStripeCheckout}
               open={this.state.form}
               handleForm={this.handleForm}
+              resetCart={resetCart}
             />
           </Container>
         )}

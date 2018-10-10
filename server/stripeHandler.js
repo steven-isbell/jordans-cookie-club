@@ -23,7 +23,6 @@ module.exports.handler = (event, context, callback) => {
     })
     .then(charge => {
       // Success response
-      console.log(charge);
       const response = {
         headers,
         statusCode: 200,

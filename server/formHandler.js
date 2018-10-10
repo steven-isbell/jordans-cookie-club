@@ -16,7 +16,7 @@ module.exports.handler = async (event, context, callback) => {
     from: `${name} <${email}>`,
     to: CONTACT_EMAIL,
     subject: 'New Cookie Order',
-    text: `Message: ${message}, Desc: ${description}, Address: ${address}`,
+    text: `Description: ${description}, Address: ${address}`,
   };
 
   try {
@@ -25,8 +25,7 @@ module.exports.handler = async (event, context, callback) => {
       headers,
       statusCode: 200,
       body: JSON.stringify({
-        message: `Charge processed!`,
-        charge,
+        message: `Success!`,
       }),
     };
     callback(null, response);

@@ -5,9 +5,9 @@ class InfoForm extends Component {
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
-  submitForm = async () => {
+  submitForm = () => {
     const { name, email, description, address } = this.state;
-    const response = await fetch(process.env.AWS_LAMBDA_EMAIL_URL, {
+    fetch(process.env.AWS_LAMBDA_EMAIL_URL, {
       method: 'POST',
       body: JSON.stringify({
         name,
@@ -18,8 +18,10 @@ class InfoForm extends Component {
       headers: new Headers({
         'Content-Type': 'application/json',
       }),
-    });
-    console.log(response);
+    })
+      .then(res => res.json())
+      .then(res => res)
+      .catch(e => console.log(e));
   };
   render() {
     return (
@@ -39,7 +41,10 @@ class InfoForm extends Component {
         }}
       >
         <form
-          onSubmit={this.props.handler}
+          onSubmit={e => {
+            e.preventDefault();
+            this.props.handler(this.submitForm, this.props.resetCart);
+          }}
           style={{
             position: 'relative',
             zIndex: 2,
