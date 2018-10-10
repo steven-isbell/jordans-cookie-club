@@ -5,6 +5,22 @@ class InfoForm extends Component {
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
+  submitForm = async () => {
+    const { name, email, description, address } = this.state;
+    const response = await fetch(process.env.AWS_LAMBDA_EMAIL_URL, {
+      method: 'POST',
+      body: JSON.stringify({
+        name,
+        email,
+        description,
+        address,
+      }),
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      }),
+    });
+    console.log(response);
+  };
   render() {
     return (
       <div
