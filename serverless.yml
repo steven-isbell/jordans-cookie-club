@@ -35,3 +35,10 @@ functions:
           path: checkout
           method: post
           cors: true
+  email:
+    handler: server/formHandler.handler
+    events:
+      - http:
+          path: email
+          method: post
+          cors: true
