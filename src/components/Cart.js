@@ -63,16 +63,15 @@ class Cart extends Component {
           }),
         })
           .then(res => {
-            this.resetButton();
             this.setState({
               paymentMessage: 'Payment Successful!',
               total: 0,
             });
+            this.resetButton();
             submitForm();
             resetCart();
           })
           .catch(error => {
-            console.error('Error:', error);
             this.setState({ paymentMessage: 'Payment Failed' });
           });
       },
@@ -82,56 +81,60 @@ class Cart extends Component {
   render() {
     return (
       <Consumer>
-        {({ deleteFromCart, resetCart, cart }) => (
-          <Container>
-            <div>
-              {cart.map(val => (
-                <div key={val.id}>
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                    }}
-                  >
-                    <div>
-                      <h2>{val.name}</h2>
-                      <span>{`$${val.price}`.replace('00', '')}</span>
-                      &nbsp;X&nbsp;
-                      <span>{val.quantity}</span>
+        {({ deleteFromCart, resetCart, cart }) => {
+          const total = this.getTotal(cart);
+          return (
+            <Container>
+              <div>
+                {cart.map(val => (
+                  <div key={val.id}>
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                      }}
+                    >
+                      <div>
+                        <h2>{val.name}</h2>
+                        <span>{`$${val.price}`.replace('00', '')}</span>
+                        &nbsp;X&nbsp;
+                        <span>{val.quantity}</span>
+                      </div>
+                      <div onClick={() => deleteFromCart(val.id)}>
+                        <h3 style={{ cursor: 'pointer' }}> &#128465;</h3>
+                      </div>
                     </div>
-                    <div onClick={() => deleteFromCart(val.id)}>
-                      <h3 style={{ cursor: 'pointer' }}> &#128465;</h3>
-                    </div>
+                    <hr />
                   </div>
-                  <hr />
-                </div>
-              ))}
-            </div>
-            <div>
-              {this.getTotal(cart) ? (
-                <h3>Total {`$${this.getTotal(cart)}`.replace('00', '')}</h3>
-              ) : null}
-            </div>
-            {cart.length > 0 ? (
-              <Button onClick={this.handleForm} disabled={this.state.disabled}>
-                {this.state.buttonText}
-              </Button>
-            ) : (
-              <h1>
-                Looks like the cart is empty! Start adding items{' '}
-                <StyledLink to="/">here!</StyledLink>
-              </h1>
-            )}
-            <p>{this.state.paymentMessage}</p>
-            <InfoForm
-              handler={this.openStripeCheckout}
-              open={this.state.form}
-              handleForm={this.handleForm}
-              resetCart={resetCart}
-            />
-          </Container>
-        )}
+                ))}
+              </div>
+              <div>
+                {total ? <h3>Total {`$${total}`.replace('00', '')}</h3> : null}
+              </div>
+              {cart.length > 0 ? (
+                <Button
+                  onClick={this.handleForm}
+                  disabled={this.state.disabled}
+                >
+                  {this.state.buttonText}
+                </Button>
+              ) : (
+                <h1>
+                  Looks like the cart is empty! Start adding items{' '}
+                  <StyledLink to="/">here!</StyledLink>
+                </h1>
+              )}
+              <p>{this.state.paymentMessage}</p>
+              <InfoForm
+                handler={this.openStripeCheckout}
+                open={this.state.form}
+                handleForm={this.handleForm}
+                resetCart={resetCart}
+              />
+            </Container>
+          );
+        }}
       </Consumer>
     );
   }
