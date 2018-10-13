@@ -8,6 +8,7 @@ import { Container } from '../styledComponents/layout';
 
 import CartProvider from '../components/CartProvider';
 import Header from '../components/Header';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 const LayoutContainer = styled(Container)`
   padding-top: 12vh;
@@ -25,10 +26,12 @@ const Layout = ({ children, data, location }) => (
         },
       ]}
     />
-    <CartProvider>
-      <Header siteTitle={data.site.siteMetadata.title} location={location} />
-      <LayoutContainer>{children()}</LayoutContainer>
-    </CartProvider>
+    <ErrorBoundary>
+      <CartProvider>
+        <Header siteTitle={data.site.siteMetadata.title} location={location} />
+        <LayoutContainer>{children()}</LayoutContainer>
+      </CartProvider>
+    </ErrorBoundary>
   </div>
 );
 
