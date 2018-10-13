@@ -47,11 +47,10 @@ class InfoForm extends Component {
             e.preventDefault();
             this.props.handler(this.submitForm, this.props.resetCart);
           }}
+          className="info-form"
           style={{
             position: 'relative',
             zIndex: 2,
-            maxWidth: screen.width > 500 ? '25%' : '100%',
-            margin: screen.width > 500 ? '100px auto' : 0,
           }}
         >
           <div

@@ -3,3 +3,13 @@
     text-align: center;
   }
 }
+
+.info-form {
+  max-width: 25%;
+  margin: 100px auto;
+}
+
+@media (max-width: 500px) {
+  max-width: 100%;
+  margin: 0;
+}
