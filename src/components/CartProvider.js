@@ -14,7 +14,7 @@ class CartWrapper extends Component {
 
   resetCart = () => {
     localStorage.clear();
-    this.setState({ cart: [] });
+    this.setState({ cart: [], quantity: 0 });
   };
 
   addToCart = item => {

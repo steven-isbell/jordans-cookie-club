@@ -67,6 +67,7 @@ class InfoForm extends Component {
               value={this.state.name}
               onChange={this.handleChange}
               name="name"
+              required
             />
           </div>
           <br />
@@ -83,6 +84,7 @@ class InfoForm extends Component {
               value={this.state.email}
               onChange={this.handleChange}
               name="email"
+              required
             />
           </div>
           <br />
@@ -100,6 +102,7 @@ class InfoForm extends Component {
               value={this.state.address}
               onChange={this.handleChange}
               name="address"
+              required
             />
           </div>
           <br />

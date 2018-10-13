@@ -56,7 +56,7 @@ class Cart extends Component {
           body: JSON.stringify({
             token,
             amount: total,
-            description: info.description,
+            description: 'Completed Order',
           }),
           headers: new Headers({
             'Content-Type': 'application/json',
