@@ -14,6 +14,7 @@ class InfoForm extends Component {
         email,
         description,
         address,
+        items: this.props.cart,
       }),
       headers: new Headers({
         'Content-Type': 'application/json',

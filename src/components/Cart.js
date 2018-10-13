@@ -62,7 +62,7 @@ class Cart extends Component {
             'Content-Type': 'application/json',
           }),
         })
-          .then(res => {
+          .then(() => {
             this.setState({
               paymentMessage: 'Payment Successful!',
               total: 0,
@@ -131,6 +131,7 @@ class Cart extends Component {
                 open={this.state.form}
                 handleForm={this.handleForm}
                 resetCart={resetCart}
+                cart={cart}
               />
             </Container>
           );
