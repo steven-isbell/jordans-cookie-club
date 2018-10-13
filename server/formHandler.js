@@ -9,7 +9,9 @@ module.exports.handler = async (event, context, callback) => {
     event.body
   );
 
-  const parsedItems = items.map(val => val.name).join(', ');
+  const parsedItems = items
+    .map(({ name, quantity }) => `${name} X ${quantity}`)
+    .join(', ');
 
   const headers = {
     'Access-Control-Allow-Origin': '*',
