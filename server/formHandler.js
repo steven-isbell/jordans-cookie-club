@@ -5,7 +5,9 @@ const { SENDGRID_KEY, CONTACT_EMAIL } = process.env;
 sgMail.setApiKey(SENDGRID_KEY);
 
 module.exports.handler = async (event, context, callback) => {
-  const { name, email, description, address, items } = JSON.parse(event.body);
+  const { name, email, description, address, items, stripeID } = JSON.parse(
+    event.body
+  );
 
   const parsedItems = items.map(val => val.name).join(', ');
 
@@ -18,7 +20,7 @@ module.exports.handler = async (event, context, callback) => {
     from: `${name} <${email}>`,
     to: CONTACT_EMAIL,
     subject: 'New Cookie Order',
-    text: `Description: ${description}, Address: ${address}, Items Ordered: ${parsedItems}`,
+    text: `Description: ${description}, Address: ${address}, Items Ordered: ${parsedItems}, Stripe Charge ID: ${stripeID}`,
   };
 
   try {

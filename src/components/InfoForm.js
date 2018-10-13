@@ -5,7 +5,7 @@ class InfoForm extends Component {
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
-  submitForm = () => {
+  submitForm = stripeID => {
     const { name, email, description, address } = this.state;
     fetch(process.env.AWS_LAMBDA_EMAIL_URL, {
       method: 'POST',
@@ -15,6 +15,7 @@ class InfoForm extends Component {
         description,
         address,
         items: this.props.cart,
+        stripeID,
       }),
       headers: new Headers({
         'Content-Type': 'application/json',

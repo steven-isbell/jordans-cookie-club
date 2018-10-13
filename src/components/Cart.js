@@ -62,17 +62,17 @@ class Cart extends Component {
             'Content-Type': 'application/json',
           }),
         })
-          .then(() => {
+          .then(res => {
             this.setState({
               paymentMessage: 'Payment Successful!',
               total: 0,
             });
             this.resetButton();
-            submitForm();
+            submitForm(res.id);
             resetCart();
           })
           .catch(error => {
-            this.setState({ paymentMessage: 'Payment Failed' });
+            this.setState({ paymentMessage: 'Payment Failed To Process' });
           });
       },
     });
