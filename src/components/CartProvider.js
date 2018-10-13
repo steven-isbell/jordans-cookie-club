@@ -6,7 +6,7 @@ class CartWrapper extends Component {
   state = { cart: [], quantity: 0 };
   componentDidMount() {
     const cart = JSON.parse(localStorage.getItem('cart'));
-    if (cart.length) {
+    if (cart && cart.length) {
       const quantity = cart.reduce((acc, cur) => (acc += cur.quantity), 0);
       this.setState({ cart, quantity });
     }

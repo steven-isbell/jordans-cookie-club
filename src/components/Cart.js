@@ -19,6 +19,7 @@ class Cart extends Component {
     buttonText: 'Checkout',
     paymentMessage: '',
     total: 0,
+    paymentSuccess: false,
   };
   resetButton() {
     this.setState({
@@ -66,13 +67,17 @@ class Cart extends Component {
             this.setState({
               paymentMessage: 'Payment Successful!',
               total: 0,
+              paymentSuccess: true,
             });
             this.resetButton();
             submitForm(res.id);
             resetCart();
           })
-          .catch(error => {
-            this.setState({ paymentMessage: 'Payment Failed To Process' });
+          .catch(() => {
+            this.setState({
+              paymentMessage: 'Payment Failed To Process',
+              paymentSuccess: false,
+            });
           });
       },
     });
@@ -120,10 +125,20 @@ class Cart extends Component {
                   {this.state.buttonText}
                 </Button>
               ) : (
-                <h1>
-                  Looks like the cart is empty! Start adding items{' '}
-                  <StyledLink to="/">here!</StyledLink>
-                </h1>
+                <Fragment>
+                  {this.state.paymentSuccess && (
+                    <Fragment>
+                      <h1>Thanks For Your Order!</h1>
+                      <p>
+                        I'll let you know when your cookies are on their way!
+                      </p>
+                    </Fragment>
+                  )}
+                  <h1>
+                    Looks like the cart is empty! Start adding items{' '}
+                    <StyledLink to="/">here!</StyledLink>
+                  </h1>
+                </Fragment>
               )}
               <p>{this.state.paymentMessage}</p>
               <InfoForm
