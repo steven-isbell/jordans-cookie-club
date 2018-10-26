@@ -12,7 +12,7 @@ const HeaderContainer = styled.header`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1.45rem;
-  font-family: Clicker Script, Helvetica Neue, Arial, Helvetica, sans-serif;
+  font-family: 'Clicker Script', cursive;
   background: #fff;
   font-weight: 400;
   border: 1px solid rgba(34, 36, 38, 0.15);
@@ -34,7 +34,11 @@ class Header extends Component {
     return (
       <HeaderContainer background={this.props.background}>
         <Heading1>
-          <StyledLink to="/">{this.props.title}</StyledLink>
+          <StyledLink to="/">
+            <span style={{ fontFamily: 'Clicker Script, cursive' }}>
+              {this.props.title}
+            </span>
+          </StyledLink>
         </Heading1>
         <Nav StyledLink={StyledLink} location={this.props.location} />
       </HeaderContainer>
