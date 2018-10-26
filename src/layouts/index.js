@@ -11,7 +11,7 @@ import Header from '../components/Header';
 import ErrorBoundary from '../components/ErrorBoundary';
 
 const LayoutContainer = styled(Container)`
-  padding-top: 12vh;
+  padding-top: 14vh;
 `;
 
 const Layout = ({ children, data, location }) => (

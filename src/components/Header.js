@@ -12,13 +12,13 @@ const HeaderContainer = styled.header`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1.45rem;
-  font-family: 'Clicker Script', cursive;
+  font-family: 'Fauna One', cursive;
   background: #fff;
   font-weight: 400;
   border: 1px solid rgba(34, 36, 38, 0.15);
   box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15);
   min-height: 2.85714286em;
-  padding: 10px 20% 10px 10%;
+  padding: 10px 10% 10px 10%;
   position: fixed;
   width: 100vw;
 `;

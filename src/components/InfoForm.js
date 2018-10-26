@@ -38,7 +38,7 @@ class InfoForm extends Component {
           left: 0,
           padding: '12px',
           color: '#fff',
-          fontFamily: 'georgia, serif',
+          fontFamily: '',
           display: this.props.open ? 'block' : 'none',
         }}
       >

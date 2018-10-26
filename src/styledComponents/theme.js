@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Button = styled.button`
   font-size: 16px;
-  font-family: georgia, serif;
+  font-family: 'Fauna One', serif;
   text-align: center;
   color: #fff;
   outline: none;

@@ -134,7 +134,7 @@ class Cart extends Component {
                       </p>
                     </Fragment>
                   )}
-                  <h1>
+                  <h1 style={{ textAlign: 'center' }}>
                     Looks like the cart is empty! Start adding items{' '}
                     <StyledLink to="/">here!</StyledLink>
                   </h1>
