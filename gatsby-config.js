@@ -4,7 +4,7 @@ require('dotenv').config({
 
 module.exports = {
   siteMetadata: {
-    title: "Jordan's Cookie Club",
+    title: "Clementine Cookie Co.",
   },
   plugins: [
     'gatsby-plugin-react-helmet',

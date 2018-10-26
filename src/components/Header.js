@@ -12,7 +12,7 @@ const HeaderContainer = styled.header`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1.45rem;
-  font-family: Lato, Helvetica Neue, Arial, Helvetica, sans-serif;
+  font-family: Clicker Script, Helvetica Neue, Arial, Helvetica, sans-serif;
   background: #fff;
   font-weight: 400;
   border: 1px solid rgba(34, 36, 38, 0.15);
@@ -43,7 +43,7 @@ class Header extends Component {
 }
 
 Header.defaultProps = {
-  title: "Jordan's Cookie Club",
+  title: 'Clementine Cookie Co.',
 };
 
 Header.propTypes = {
