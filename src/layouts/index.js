@@ -4,6 +4,7 @@ import Helmet from 'react-helmet';
 import styled from 'styled-components';
 
 import './index.css';
+import favicon from '../assets/clementine.png';
 import { Container } from '../styledComponents/layout';
 
 import CartProvider from '../components/CartProvider';
@@ -25,6 +26,7 @@ const Layout = ({ children, data, location }) => (
           content: 'cookie, baking, cakes, joy, cookies, icing',
         },
       ]}
+      link={[{ rel: 'shortcut icon', type: 'image/png', href: `${favicon}` }]}
     />
     <ErrorBoundary>
       <CartProvider>
