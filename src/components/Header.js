@@ -20,7 +20,7 @@ const HeaderContainer = styled.header`
   min-height: 2.85714286em;
   padding: 10px 10% 10px 10%;
   position: fixed;
-  flex-basis: 100vw;
+  width: 100vw;
 `;
 
 const StyledLink = styled(Link)`
