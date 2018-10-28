@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 
 import { Button } from '../styledComponents/theme';
 
-const cardStyles = {
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-around',
-  alignItems: 'flex-start',
-  padding: '3rem',
-  boxShadow: '5px 5px 25px 0 rgba(46,61,73,.2)',
-  backgroundColor: '#fff',
-  borderRadius: '6px',
-  margin: '25px',
-  width: '350px',
-};
+const Card = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 3rem;
+  box-shadow: 5px 5px 25px 0 rgba(46, 61, 73, 0.2);
+  background-color: #fff;
+  border-radius: 6px;
+  margin: 25px;
+  flex-basis: 350px;
+`;
 
 class Checkout extends Component {
   state = {
@@ -40,7 +41,7 @@ class Checkout extends Component {
   render() {
     const nameParts = this.props.cookie.name.split('\n');
     return (
-      <div style={cardStyles}>
+      <Card>
         <div
           style={{
             display: 'flex',
@@ -63,7 +64,7 @@ class Checkout extends Component {
           {this.state.buttonText}
         </Button>
         {this.state.paymentMessage}
-      </div>
+      </Card>
     );
   }
 }
